@@ -1,0 +1,86 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --radius: 0.75rem;
+
+  /* AgroTech Neon palette */
+  --ink: oklch(0.15 0.016 155);
+  --panel: oklch(0.19 0.02 155);
+  --line: oklch(0.27 0.022 155);
+  --neon: oklch(0.87 0.23 148);
+  --sky: oklch(0.78 0.12 230);
+  --fog: oklch(0.7 0.02 155);
+  --danger: oklch(0.62 0.25 20);
+  --warn: oklch(0.82 0.16 85);
+
+  --background: var(--ink);
+  --foreground: oklch(0.97 0.004 155);
+  --card: var(--panel);
+  --card-foreground: oklch(0.97 0.004 155);
+  --popover: var(--panel);
+  --popover-foreground: oklch(0.97 0.004 155);
+  --primary: var(--neon);
+  --primary-foreground: var(--ink);
+  --secondary: var(--panel);
+  --secondary-foreground: oklch(0.97 0.004 155);
+  --muted: var(--panel);
+  --muted-foreground: var(--fog);
+  --accent: var(--sky);
+  --accent-foreground: var(--ink);
+  --border: var(--line);
+  --input: var(--line);
+  --ring: var(--neon);
+}
+
+@layer base {
+  * { border-color: var(--border); }
+  html { scroll-behavior: smooth; }
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: 'Inter', sans-serif;
+  }
+}
+
+@layer utilities {
+  .font-display { font-family: "Space Grotesk", sans-serif; }
+
+  .grain::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.05;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .rise { animation: rise 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+  .breathe { animation: breathe 2.6s ease-in-out infinite; }
+  .glow-neon {
+    box-shadow: 0 0 0 1px color-mix(in oklab, var(--neon) 40%, transparent),
+      0 0 30px -6px color-mix(in oklab, var(--neon) 60%, transparent);
+  }
+  .glow-sky {
+    box-shadow: 0 0 0 1px color-mix(in oklab, var(--sky) 35%, transparent),
+      0 0 26px -8px color-mix(in oklab, var(--sky) 50%, transparent);
+  }
+  .card-hover {
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+  .card-hover:hover {
+    transform: translateY(-4px);
+    border-color: color-mix(in oklab, var(--neon) 55%, transparent);
+    box-shadow: 0 0 30px -12px color-mix(in oklab, var(--neon) 70%, transparent);
+  }
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes breathe {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 1; }
+}
